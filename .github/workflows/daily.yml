@@ -1,0 +1,26 @@
+name: Daily Auto Commit
+
+on:
+  schedule:
+    - cron: '0 8 * * *'  # هر روز ساعت ۸ صبح به وقت اروپا
+  workflow_dispatch:
+
+jobs:
+  commit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Update file
+        run: |
+          echo "$(date '+%Y-%m-%d %H:%M') - Alive & coding 🔥" >> alive.txt
+
+      - name: Commit & Push
+        run: |
+          git config user.name "Lukas Smit"
+          git config user.email "lukas@smit.nl"
+          git add .
+          git commit -m "daily: keep streak alive $(date '+%Y-%m-%d')"
+          git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
