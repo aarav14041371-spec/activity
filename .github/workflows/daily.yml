@@ -2,13 +2,12 @@ name: Daily Auto Commit
 
 on:
   schedule:
-    - cron: '0 8 * * *' # هر روز ساعت ۸ صبح به وقت اروپا
+    - cron: '0 8 * * *'
   workflow_dispatch:
 
 jobs:
   commit:
     runs-on: ubuntu-latest
-    # این خط دسترسی نوشتن را تضمین می‌کند
     permissions:
       contents: write
     
